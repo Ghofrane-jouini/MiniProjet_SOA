@@ -1,0 +1,35 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: git
+  rabbitmq:
+    host: "${RABBITMQ_HOST:localhost}"
+    port: 5672
+    username: "guest"
+    password: "guest"
+  cloud:
+    config:
+      server:
+        health:
+          enabled: false
+        git:
+          uri: https://github.com/Ghofrane-jouini/config-repo.git
+          default-label: main
+          clone-on-start: true
+        monitor:
+          validation-filter-enabled: false
+          github:
+            validation-enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    rabbit:
+      enabled: false
